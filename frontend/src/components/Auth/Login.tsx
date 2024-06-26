@@ -118,7 +118,7 @@ const Login: React.FC = () => {
           Google
         </button>
         <p className="text-xs text-gray-600 mt-4">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/" className="underline">
             Sign up here
           </a>
