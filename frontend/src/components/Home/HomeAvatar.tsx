@@ -1,4 +1,3 @@
-// HomeAvatar.js
 import React from "react";
 import { Avatar, Stack, Tooltip } from "@chakra-ui/react";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-export default function ProfileFields({
+export function ProfileFields({
   fieldName,
   fieldDetails,
 }: {

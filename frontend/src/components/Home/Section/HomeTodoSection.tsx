@@ -4,10 +4,11 @@ import { RootState } from "@/store/store";
 import TodoItem from "@/components/Todo/TodoItem";
 import HomeButton from "@/components/Home/HomeButton";
 
-export default function HomeStudySection() {
+export default function HomeTodoSection({ style }: { style: string }) {
   const { todos, filter } = useSelector((state: RootState) => state.todo);
+
   return (
-    <div className="col-span-3 mr-5 rounded-xl bg-slate-300 p-3">
+    <div className={`relative ${style}`}>
       <div className="mb-3 ml-2 font-bold text-xl border-b-2 border-white pb-1">
         Todos
       </div>
@@ -20,7 +21,9 @@ export default function HomeStudySection() {
             ))}
         </ul>
       </div>
-      <HomeButton web={"/todos"} buttonText={"Proceed to check"} />
+      <div className="absolute bottom-2 right-4">
+        <HomeButton web={"/todos"} buttonText={"Proceed to check"} />
+      </div>
     </div>
   );
 }

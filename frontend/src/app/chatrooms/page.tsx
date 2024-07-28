@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import ChatroomList from "@/components/Chatroom/ChatroomList";
-import CreateChatroom from "@/components/Chatroom/CreateChatroom";
-import JoinChatroom from "@/components/Chatroom/JoinChatroom";
 import { useAuth } from "@/components/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 import { ChatroomProvider } from "@/components/Chatroom/ChatroomContext";

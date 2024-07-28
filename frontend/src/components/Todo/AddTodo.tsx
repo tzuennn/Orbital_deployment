@@ -1,15 +1,15 @@
-import React, { useRef, useState, FormEvent } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { firestore } from '../../../firebase/firebase';
-import { useAuth } from '../Auth/AuthContext';
+import React, { useRef, useState, FormEvent } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { firestore } from "../../../firebase/firebase";
+import { useAuth } from "../Auth/AuthContext";
 
 const AddTodo: React.FC = () => {
   const taskNameRef = useRef<HTMLInputElement>(null);
   const taskDescriptionRef = useRef<HTMLInputElement>(null);
   const deadlineRef = useRef<HTMLInputElement>(null);
   const { currentUser } = useAuth() || {};
-  const [status, setStatus] = useState<string>('Not Started');
-  const [priority, setPriority] = useState<string>('Low');
+  const [status, setStatus] = useState<string>("Not Started");
+  const [priority, setPriority] = useState<string>("Low");
 
   const handleDateChange = () => {
     if (deadlineRef.current) {
@@ -21,9 +21,9 @@ const AddTodo: React.FC = () => {
       currentDate.setHours(0, 0, 0, 0);
 
       if (deadlineDate <= currentDate) {
-        setStatus('Overdue');
+        setStatus("Overdue");
       } else {
-        setStatus('Not Started');
+        setStatus("Not Started");
       }
     }
   };
@@ -31,30 +31,44 @@ const AddTodo: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (taskNameRef.current && taskDescriptionRef.current && deadlineRef.current) {
-      await addDoc(collection(firestore, 'todos'), {
+    if (
+      taskNameRef.current &&
+      taskDescriptionRef.current &&
+      deadlineRef.current
+    ) {
+      await addDoc(collection(firestore, "todos"), {
         userId: currentUser?.uid,
         taskName: taskNameRef.current.value,
         taskDescription: taskDescriptionRef.current.value,
         deadline: deadlineRef.current.value,
         status: status,
         priority: priority,
-        completed: false
+        completed: status === "Completed" ? true : false,
+        completedAt: status === "Completed" ? new Date() : null, // Set completedAt if the status is completed
+        notified: false,
       });
 
-      taskNameRef.current.value = '';
-      taskDescriptionRef.current.value = '';
-      deadlineRef.current.value = '';
-      setStatus('Not Started');
-      setPriority('Low');
+      taskNameRef.current.value = "";
+      taskDescriptionRef.current.value = "";
+      deadlineRef.current.value = "";
+      setStatus("Not Started");
+      setPriority("Low");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4 bg-white p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="grid gap-4 bg-white p-6 rounded-lg shadow-md"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="taskName" className="block text-sm font-medium text-gray-700">Task Name</label>
+          <label
+            htmlFor="taskName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Task Name
+          </label>
           <input
             type="text"
             id="taskName"
@@ -67,7 +81,12 @@ const AddTodo: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="taskDescription" className="block text-sm font-medium text-gray-700">Task Description</label>
+          <label
+            htmlFor="taskDescription"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Task Description
+          </label>
           <input
             type="text"
             id="taskDescription"
@@ -82,7 +101,12 @@ const AddTodo: React.FC = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label htmlFor="deadline" className="block text-sm font-medium text-gray-700">Deadline</label>
+          <label
+            htmlFor="deadline"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Deadline
+          </label>
           <input
             type="date"
             id="deadline"
@@ -95,7 +119,12 @@ const AddTodo: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+          <label
+            htmlFor="status"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Status
+          </label>
           <select
             id="status"
             name="status"
@@ -110,7 +139,12 @@ const AddTodo: React.FC = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="priority" className="block text-sm font-medium text-gray-700">Priority</label>
+          <label
+            htmlFor="priority"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Priority
+          </label>
           <select
             id="priority"
             name="priority"
@@ -124,7 +158,10 @@ const AddTodo: React.FC = () => {
           </select>
         </div>
       </div>
-      <button type="submit" className="w-full bg-black text-white py-2 rounded mt-4 hover:bg-gray-600">
+      <button
+        type="submit"
+        className="w-full bg-black text-white py-2 rounded mt-4 hover:bg-gray-600"
+      >
         Add Task
       </button>
     </form>

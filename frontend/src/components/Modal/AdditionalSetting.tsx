@@ -3,14 +3,13 @@ import React, { useEffect } from "react";
 import { BackgroundImageType } from "@/store/timerSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
-import { setBackgroundImage, setBackgroundMusic } from "../../store/timerSlice";
+import { setBackgroundImage } from "../../store/timerSlice";
 
 type AdditionalSettingsModalProps = {
   onClose: () => void;
   backgroundImages: string[];
   onSettingsSubmit: (settings: {
     backgroundImage: BackgroundImageType;
-    backgroundMusic: string;
   }) => void;
 };
 
@@ -20,7 +19,7 @@ export default function AdditionalSettingsModal({
   onSettingsSubmit,
 }: AdditionalSettingsModalProps) {
   const dispatch: AppDispatch = useDispatch();
-  const { backgroundImage, backgroundMusic } = useSelector(
+  const { backgroundImage } = useSelector(
     (state: RootState) => state.timer.backgroundSettings
   );
 
@@ -39,7 +38,7 @@ export default function AdditionalSettingsModal({
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSettingsSubmit({ backgroundImage, backgroundMusic });
+    onSettingsSubmit({ backgroundImage });
     onClose();
   };
 
@@ -77,19 +76,6 @@ export default function AdditionalSettingsModal({
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="flex flex-col items-start">
-              <label htmlFor="backgroundMusic" className="text-sm">
-                Background Music URL
-              </label>
-              <input
-                type="text"
-                id="backgroundMusic"
-                name="backgroundMusic"
-                className="p-2 border rounded w-full"
-                value={backgroundMusic}
-                onChange={(e) => setBackgroundMusic(e.target.value)}
-              />
             </div>
           </div>
           <div className="flex space-x-4">

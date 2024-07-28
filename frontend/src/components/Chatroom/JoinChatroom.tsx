@@ -51,7 +51,7 @@ const JoinChatroom: React.FC = () => {
         />
         <button
           type="submit"
-          className="mt-2 p-2 bg-blue-500 text-white rounded-md w-full"
+          className="w-full bg-black text-white py-2 rounded hover:bg-gray-600"
           disabled={isLimitReached}
         >
           Join Chatroom

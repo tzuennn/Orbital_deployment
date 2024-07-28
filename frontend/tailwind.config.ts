@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -25,6 +31,9 @@ const config: Config = {
         lightGrey: "#ADBBDA",
         lightOrange: "#FFD580",
         lightYellow: "#ffffa9",
+      },
+      animation: {
+        blink: "blink 1s step-start 0s infinite",
       },
     },
   },

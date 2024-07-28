@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
 import { firestore } from "../../../firebase/firebase";
 import { removeTodo, updateTodo } from "../../store/todoSlice";
-
-interface Todo {
-  id: string;
-  taskName: string;
-  taskDescription: string;
-  deadline: string;
-  status: string;
-  priority: string;
-  completed: boolean;
-}
+import { Todo } from "./types";
 
 interface TodoItemProps {
   todo: Todo;
@@ -45,11 +36,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, isHome }) => {
 
     try {
       const todoRef = doc(firestore, "todos", todo.id);
-      await updateDoc(todoRef, { status: statusValue, completed: isCompleted });
+      await updateDoc(todoRef, { status: statusValue, completed: isCompleted, completedAt: isCompleted ? new Date().toISOString() : null });
       dispatch(
         updateTodo({
           id: todo.id,
-          data: { status: statusValue, completed: isCompleted },
+          data: { status: statusValue, completed: isCompleted, completedAt: isCompleted ? new Date().toISOString() : null },
         })
       );
       setEditStatus(statusValue);

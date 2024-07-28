@@ -1,14 +1,14 @@
-import HomeStudyChart from "../HomeStudyChart";
+import HomeStudyChart from "./misc/HomeStudyChart";
 import HomeButton from "../HomeButton";
 
-export default function HomeStudySection() {
+export default function HomeStudySection({ style }: { style: string }) {
   return (
-    <div className="col-span-1 bg-lightBlue p-3 rounded-xl">
+    <div className={style}>
       <div className="mb-3 ml-2 font-bold text-xl border-b-2 border-white pb-1">
         Study
       </div>
       <div style={{ height: "270px" }}>
-        <HomeStudyChart />
+        <HomeStudyChart></HomeStudyChart> 
       </div>
       <HomeButton web={"/study"} buttonText={"Continue to study"} />
     </div>

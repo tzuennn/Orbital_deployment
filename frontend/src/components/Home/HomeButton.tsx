@@ -1,7 +1,8 @@
+"use client";
 import { Button } from "@chakra-ui/react";
 import { MdArrowForward } from "react-icons/md";
-import Link from "next/link";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 
 interface HomeButtonProps {
   web: string;
@@ -9,8 +10,9 @@ interface HomeButtonProps {
 }
 
 const HomeButton: FC<HomeButtonProps> = ({ web, buttonText }) => {
+  const router = useRouter();
   return (
-    <Link href={web} className="flex justify-end mt-2">
+    <div onClick={() => router.push(web)} className="flex justify-end mt-2">
       <Button
         rightIcon={<MdArrowForward />}
         colorScheme="teal"
@@ -19,7 +21,7 @@ const HomeButton: FC<HomeButtonProps> = ({ web, buttonText }) => {
       >
         {buttonText}
       </Button>
-    </Link>
+    </div>
   );
 };
 

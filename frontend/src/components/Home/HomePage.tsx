@@ -60,7 +60,6 @@ const HomePage: React.FC = () => {
         if (profilePicRef.current) profilePicRef.current.value = "";
 
         setShowPopup(true);
-        console.error(err);
       }
 
       setLoading(false);
@@ -76,7 +75,6 @@ const HomePage: React.FC = () => {
     } catch (error) {
       setError("Failed to log in with Google");
       setShowPopup(true);
-      console.error(error);
     }
   };
 
