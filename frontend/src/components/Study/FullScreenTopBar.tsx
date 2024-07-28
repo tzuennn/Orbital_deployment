@@ -23,7 +23,7 @@ import {
 import { firestore } from "../../../firebase/firebase";
 import { useAuth } from "../Auth/AuthContext";
 
-export const FullScreenTopBar = () => {
+const FullScreenTopBar: React.FC = () => {
   const [isStudyCycle, setStudyCycle] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
@@ -158,3 +158,7 @@ export const FullScreenTopBar = () => {
     </nav>
   );
 };
+
+FullScreenTopBar.displayName = "FullScreenTopBar";
+
+export default FullScreenTopBar;

@@ -93,7 +93,7 @@ export default function PomodoroModal({
             onClick={handleConfirm}
             className="p-2 bg-green-500 text-white rounded hover:scale-105"
           >
-            Let's Go
+            Let&apos;s Go
           </button>
           <button
             onClick={onClose}
