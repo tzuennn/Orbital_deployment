@@ -17,7 +17,6 @@ import {
   query,
   updateDoc,
   where,
-  doc,
   Timestamp,
 } from "firebase/firestore";
 import { firestore } from "../../../firebase/firebase";
@@ -92,19 +91,32 @@ const FullScreenTopBar: React.FC = () => {
     dispatch(setpomodoroCycleCompleted(pomodoroCycleCompleted + 1));
   };
 
+  const CustomCountdownTimer: React.FC<any> = (props) => (
+    <CountdownTimer {...props} />
+  );
+  CustomCountdownTimer.displayName = "CustomCountdownTimer";
+
+  const CustomPomodoroPatternTimer: React.FC<any> = (props) => (
+    <PomodoroPatternTimer {...props} />
+  );
+  CustomPomodoroPatternTimer.displayName = "CustomPomodoroPatternTimer";
+
+  const CustomTabList: React.FC<any> = (props) => <TabList {...props} />;
+  CustomTabList.displayName = "CustomTabList";
+
   return (
     <nav className="bg-gray-400 p-7 relative w-screen rounded-sm">
       <div className="container mx-auto flex justify-center items-center h-16">
         <div className="absolute left-0 top-0 mt-4 ml-4">
-          {pomodoroCycleLeft == 0 ? (
-            <CountdownTimer
+          {pomodoroCycleLeft === 0 ? (
+            <CustomCountdownTimer
               onTimeUp={exitFullscreen}
               initialTime={countdownSeconds}
               onTotalSecondsUpdate={handleTotalSecondsUpdate}
             />
           ) : (
             <div className="flex flex-row items-center">
-              <PomodoroPatternTimer
+              <CustomPomodoroPatternTimer
                 onTimeUp={exitFullscreen}
                 isStudyCycle={isStudyCycle}
                 setStudyCycle={handleToggleCycle}
@@ -134,7 +146,7 @@ const FullScreenTopBar: React.FC = () => {
         ) : (
           <Box width="100%" display="flex" justifyContent="center">
             <Tabs position="relative" variant="unstyled">
-              <TabList>
+              <CustomTabList>
                 <Link href="/study/background">
                   <Tab>None</Tab>
                 </Link>
@@ -144,7 +156,7 @@ const FullScreenTopBar: React.FC = () => {
                 <Link href="/chatrooms">
                   <Tab>Community</Tab>
                 </Link>
-              </TabList>
+              </CustomTabList>
               <TabIndicator
                 mt="-1.5px"
                 height="2px"
